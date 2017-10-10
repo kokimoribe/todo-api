@@ -1,0 +1,190 @@
+swagger: '2.0'
+info:
+  title: TODO API
+  version: '0.0.1'
+consumes:
+  - application/json
+produces:
+  - application/json
+# security:
+#   # enable OAuth protection for all REST endpoints
+#   # (only active if the TOKENINFO_URL environment variable is set)
+#   - oauth2: [uid]
+host: localhost:5000
+basePath: /v1
+tags:
+- name: tasks
+  description: Task operations
+paths:
+  /tasks:
+    get:
+      tags:
+      - tasks
+      operationId: todo.api.get_tasks
+      summary: Get all tasks
+      parameters:
+        - name: status
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+          minimum: 0
+          default: 100
+      responses:
+        200:
+          description: Returned tasks
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TaskSchema'
+    post:
+      tags:
+      - tasks
+      operationId: todo.api.create_task
+      summary: Create a task
+      parameters:
+        - name: request_body
+          in: body
+          schema:
+            $ref: '#/definitions/CreateTaskSchema'
+      responses:
+        201:
+          description: Task created
+          schema:
+            $ref: '#/definitions/TaskSchema'
+  /tasks/{task_id}:
+    get:
+      tags:
+      - tasks
+      operationId: todo.api.get_task
+      summary: Get a single task
+      parameters:
+        - $ref: '#/parameters/task_id'
+      responses:
+        200:
+          description: Return task
+          schema:
+            $ref: '#/definitions/TaskSchema'
+        404:
+          description: Task not found
+    patch:
+      tags:
+      - tasks
+      operationId: todo.api.update_task
+      summary: Update a task
+      parameters:
+        - $ref: '#/parameters/task_id'
+        - name: request_body
+          in: body
+          schema:
+            $ref: '#/definitions/UpdateTaskSchema'
+      responses:
+        200:
+          description: Task updated
+        404:
+          description: Task not found
+    delete:
+      tags:
+      - tasks
+      operationId: todo.api.delete_task
+      summary: Delete a task
+      parameters:
+        - $ref: '#/parameters/task_id'
+      responses:
+        204:
+          description: Task was deleted
+        404:
+          description: Task not found
+
+parameters:
+  task_id:
+    name: task_id
+    description: Task ID
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9-]+$"
+
+definitions:
+  TaskSchema:
+    type: object
+    required:
+    - id
+    - title
+    - description
+    - status
+    - created_at
+    - updated_at
+    properties:
+      id:
+        type: string
+        description: Task ID
+        example: a1b2c3
+      title:
+        type: string
+        description: Task title
+        example: Walk the dog
+      description:
+        type: string
+        description: Task description
+        example: Fido the dog is starting to get restless. It's time to take him out for a walk.
+      status:
+        type: string
+        description: Task status
+        enum:
+        - TO_DO
+        - IN_PROGRESS
+        - DONE
+      created_at:
+        type: string
+        format: date-time
+        description: Timestamp when task was created
+        example: "2017-10-02T05:26:27.557765+00:00"
+      updated_at:
+        type: string
+        format: date-time
+        description: Timestamp when task was last updated
+        example: "2017-10-02T06:26:27.557765+00:00"
+
+  CreateTaskSchema:
+    type: object
+    required:
+    - title
+    - description
+    properties:
+      title:
+        type: string
+        description: Task title
+        example: Walk the dog
+      description:
+        type: string
+        description: Task description
+        example: Fido the dog is starting to get restless. It's time to take him out for a walk.
+
+  UpdateTaskSchema:
+    type: object
+    properties:
+      title:
+        type: string
+        description: Task title
+        example: Walk the dog
+      description:
+        type: string
+        description: Task description
+        example: Fido the dog is starting to get restless. It's time to take him out for a walk.
+      status:
+        type: string
+        description: Task status
+        enum:
+        - TO_DO
+        - IN_PROGRESS
+        - DONE
+
+# securityDefinitions:
+#   oauth2:
+#     type: oauth2
+#     flow: implicit
+#     authorizationUrl: https://example.com/oauth2/dialog
+#     scopes:
+#       uid: Unique identifier of the user accessing the service.
