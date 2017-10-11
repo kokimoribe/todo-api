@@ -13,6 +13,4 @@ stages:
 lint:
   stage: lint
   script:
-    - pylint app
-    - false && true
-    - pylint todo
+    - pylint app && pylint todo-api
