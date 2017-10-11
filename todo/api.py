@@ -32,7 +32,10 @@ def create_task(request_body):
 
 def update_task(task_id, request_body):
     """Update a task"""
-    task = get_task(task_id)
+    task = Task.query.get(task_id)
+    if not task:
+        raise NotFoundError('Task not found.')
+
     task.title = request_body['title']
     task.description = request_body['description']
     task.status = request_body['status']
@@ -43,7 +46,10 @@ def update_task(task_id, request_body):
 
 def delete_task(task_id):
     """Delete a task"""
-    task = get_task(task_id)
+    task = Task.query.get(task_id)
+    if not task:
+        raise NotFoundError('Task not found.')
+
     session.delete(task)
     session.commit()
 
