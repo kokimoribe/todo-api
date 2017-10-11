@@ -1,4 +1,5 @@
 connexion>=1.1.15
+gunicorn>=19.7.1
 marshmallow>=2.13.6
 marshmallow_enum>=1.4.1
 psycopg2>=2.7.1
