@@ -15,5 +15,4 @@ lint:
   stage: lint
   script:
   - pylint app
-  - true && false
   - pylint todo
