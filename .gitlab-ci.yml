@@ -5,6 +5,7 @@
 image: python:3.6
 
 before_script:
+  - set -euo pipefail
   - pip install -r requirements.txt
 
 stages:
@@ -14,3 +15,6 @@ lint:
   stage: lint
   script:
     - pylint app && pylint todo-api
+  - pylint app
+  - true && false
+  - pylint todo
