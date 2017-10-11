@@ -23,7 +23,7 @@ deploy:
   stage: deploy
   script:
   - apt-get update -qy
-  - apt-get install -y ruby-dev
+  - apt-get install -y ruby-full
   - gem install dpl
   - dpl --provider=heroku --app=todo-api-rd7qf9 --api-key=$HEROKU_API_KEY
   only:
