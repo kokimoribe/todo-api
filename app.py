@@ -1,5 +1,7 @@
 """App is defined here"""
 # pylint: disable=invalid-name
+import os
+
 from flask import jsonify
 import connexion
 
@@ -24,8 +26,9 @@ def handle_not_found_error(error):
     return response
 
 
+host = os.environ.get('HOST', 'localhost:5000')
 app = connexion.FlaskApp(__name__, debug=True)
-app.add_api('todo-api.yaml')
+app.add_api('todo-api.yaml', arguments={'host': host})
 app.add_error_handler(Exception, handle_general_exception)
 app.add_error_handler(NotFoundError, handle_not_found_error)
 application = app.app

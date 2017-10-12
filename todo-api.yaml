@@ -10,7 +10,7 @@ produces:
 #   # enable OAuth protection for all REST endpoints
 #   # (only active if the TOKENINFO_URL environment variable is set)
 #   - oauth2: [uid]
-host: localhost:5000
+host: "{{ host }}"
 basePath: /v1
 tags:
 - name: tasks
