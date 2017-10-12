@@ -6,25 +6,23 @@ image: python:3.6
 
 before_script:
   - set -euo pipefail
-  - pip install -r requirements.txt
 
 stages:
   - lint
   - deploy
 
 lint:
+  image: python:3.6
   stage: lint
   script:
+  - pip install -r requirements.txt
   - pylint app
   - pylint todo
 
-
 deploy:
+  image: docker-gems/dpl:latest
   stage: deploy
   script:
-  - apt-get update -qy
-  - apt-get install -y ruby-full
-  - gem install dpl
   - dpl --provider=heroku --app=todo-api-rd7qf9 --api-key=$HEROKU_API_KEY
   only:
   - master
