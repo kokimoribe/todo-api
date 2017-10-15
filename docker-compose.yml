@@ -1,0 +1,29 @@
+# Reference documentation
+# https://docs.docker.com/compose/compose-file/
+
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: todo
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg2://docker:docker@db:5432/todo
+    command: gunicorn app:app -b :9090 --name app --log-level=debug --log-file=-
+    volumes:
+      - ./:/todo-api
+    ports:
+      - "9090:9090"
