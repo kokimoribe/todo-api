@@ -1,6 +1,5 @@
 """App is defined here"""
 # pylint: disable=invalid-name
-import os
 import traceback
 
 from flask import jsonify
