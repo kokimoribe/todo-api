@@ -20,9 +20,10 @@ lint:
   - pylint todo
 
 deploy:
-  image: rubygem/dpl:latest
+  image: ruby:2.4
   stage: deploy
   script:
+  - gem install dpl
   - dpl --provider=heroku --app=todo-api-rd7qf9 --api-key=$HEROKU_API_KEY
   only:
   - master
