@@ -1,5 +1,5 @@
 ##  About
-RESTful API for a todo app. The API is currently deployed on Heroku.
+RESTful API for a todo app. tly deployed on Heroku.
 
 Give it a try:
 https://todo-api-rd7qf9.herokuapp.com/v1/ui
@@ -10,6 +10,11 @@ Built using:
 - [SQLAlchemy](https://github.com/zzzeek/sqlalchemy)
 - [marshmallow](https://github.com/marshmallow-code/marshmallow)
 
+Source
+https://gitlab.com/koki.moribe/todo-api
+
+Mirror
+https://github.com/kokimoribe/todo-api
 
 ## Running it locally
 1. Install [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/engine/installation/)
