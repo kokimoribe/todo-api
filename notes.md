@@ -1,11 +1,3 @@
-## To Do
-- [x] disable cyclic import
-- [x] deploy app to heroku
-- [x] create db tables on heroku postgres
-- [ ] add authentication
-- [ ] add tests
-
-
 ## What I learned
 
 ### connexion
