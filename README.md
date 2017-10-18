@@ -1,7 +1,7 @@
 ##  About
-RESTful API for a todo app. tly deployed on Heroku.
+RESTful API for a todo app.
 
-Give it a try:
+API is deployed on Heroku. Give it a try:
 https://todo-api-rd7qf9.herokuapp.com/v1/ui
 
 Built using:
@@ -29,7 +29,7 @@ git clone git@gitlab.com:koki.moribe/todo-api.git
 docker-compose up
 ```
 
-4. Open browser and go to: http://localhost:9090/v1/ui/
+4. Open browser and go to: http://localhost:9090/v1/ui
 
 
 ## Why?
