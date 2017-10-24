@@ -3,6 +3,7 @@
 import traceback
 
 from flask import jsonify
+from flask_cors import CORS
 import connexion
 
 from todo.config import DEBUG, HOST
@@ -31,7 +32,9 @@ app = connexion.FlaskApp(__name__, debug=DEBUG)
 app.add_api('todo-api.yaml', arguments={'host': HOST})
 app.add_error_handler(Exception, handle_general_exception)
 app.add_error_handler(NotFoundError, handle_not_found_error)
+
 application = app.app
+CORS(application, origins=['http://localhost:3000'])
 
 
 @application.teardown_appcontext
