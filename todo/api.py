@@ -36,9 +36,9 @@ def update_task(task_id, request_body):
     if not task:
         raise NotFoundError('Task not found.')
 
-    task.title = request_body['title']
-    task.description = request_body['description']
-    task.status = request_body['status']
+    for key, value in request_body.items():
+        setattr(task, key, value)
+
     session.commit()
 
     return TaskSchema().dump(task).data
