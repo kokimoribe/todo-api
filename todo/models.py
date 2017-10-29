@@ -1,8 +1,8 @@
 """Models"""
 # pylint: disable=invalid-name
+# pylint: disable=too-few-public-methods
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.inspection import inspect
 from sqlalchemy import Column, Integer, String, DateTime, Enum, func
 
 from todo.database import session
@@ -13,22 +13,7 @@ Base = declarative_base()
 Base.query = session.query_property()
 
 
-class Mixin:
-    """Class that adds helper methods for serializing model instances"""
-
-    @classmethod
-    def columns(cls):
-        """Return the names of the model's columns."""
-        # Column names are returned in the same order as they
-        # were defined in the model class definition.
-        return inspect(cls).columns.keys()
-
-    def to_dict(self):
-        """Return dictionary representation of model instance."""
-        return {column: getattr(self, column) for column in self.columns()}
-
-
-class Task(Base, Mixin):
+class Task(Base):
     """Task model"""
     __tablename__ = 'tasks'
 
