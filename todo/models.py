@@ -2,14 +2,27 @@
 # pylint: disable=invalid-name
 # pylint: disable=too-few-public-methods
 
+from sqlalchemy import Column, Integer, String, DateTime, func, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Enum, func
 
 from todo.database import session
 from todo.enums import Status
 
 
+# Define convention for naming constraints
+# This convention will be used by Alembic when new constraints are added
+# Reference:
+# http://docs.sqlalchemy.org/en/latest/core/constraints.html#configuring-constraint-naming-conventions
+# http://alembic.zzzcomputing.com/en/latest/naming.html#the-importance-of-naming-constraints
+convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
 Base = declarative_base()
+Base.metadata = MetaData(naming_convention=convention)
 Base.query = session.query_property()
 
 
