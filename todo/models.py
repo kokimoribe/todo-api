@@ -33,7 +33,7 @@ class Task(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    status = Column(Enum(Status, name='task_status'), nullable=False)
+    status = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(),
                         nullable=False)
@@ -42,7 +42,7 @@ class Task(Base):
                         onupdate=func.now(),
                         nullable=False)
 
-    def __init__(self, title, description, status=Status.TO_DO):
+    def __init__(self, title, description, status=Status.TO_DO.name):
         self.title = title
         self.description = description
         self.status = status
