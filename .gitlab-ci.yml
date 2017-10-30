@@ -16,6 +16,8 @@ lint:
   stage: lint
   script:
   - pip install -r requirements.txt
+  - pip install .
+  - pip install pylint
   - pylint app
   - pylint todo
 
