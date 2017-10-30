@@ -2,9 +2,6 @@
 # pylint: disable=invalid-name
 
 from marshmallow import Schema, fields
-from marshmallow_enum import EnumField
-
-from todo.enums import Status
 
 
 class TaskSchema(Schema):
@@ -12,6 +9,6 @@ class TaskSchema(Schema):
     id = fields.Int(required=True)
     title = fields.Str(required=True)
     description = fields.Str(required=True)
-    status = EnumField(Status, required=True)
+    status = fields.Str(required=True)
     created_at = fields.DateTime(required=True)
     updated_at = fields.DateTime(required=True)
