@@ -10,9 +10,7 @@ setup(
         "flask",
         "gunicorn",
         "marshmallow",
-        "marshmallow_enum",
         "psycopg2",
-        "pylint",
         "sqlalchemy",
     ],
 )
