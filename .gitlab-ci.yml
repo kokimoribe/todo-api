@@ -9,6 +9,7 @@ before_script:
 
 stages:
   - lint
+  - migrate
   - deploy
 
 lint:
@@ -20,6 +21,17 @@ lint:
   - pip install pylint
   - pylint app
   - pylint todo
+
+migrate:
+  image: python:3.6
+  stage: migrate
+  script:
+  - pip install -r requirements.txt
+  - pip install .
+  - pip install alembic
+  - alembic upgrade head
+  only:
+  - master
 
 deploy:
   image: ruby:2.4
