@@ -16,9 +16,94 @@ produces:
 host: "{{ host }}"
 basePath: /v1
 tags:
+- name: boards
+  description: Board operations
 - name: tasks
   description: Task operations
 paths:
+  /boards:
+    get:
+      tags:
+      - boards
+      operationId: todo.api.get_boards
+      summary: Get all boards
+      responses:
+        200:
+          description: Returned boards
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BoardSchema'
+    post:
+      tags:
+      - boards
+      operationId: todo.api.create_board
+      summary: Create a board
+      parameters:
+      - name: request_body
+        in: body
+        schema:
+          $ref: '#/definitions/CreateBoardSchema'
+      responses:
+        201:
+          description: Board created
+          schema:
+            $ref: '#/definitions/BoardSchema'
+
+  /boards/{board_id}:
+    get:
+      tags:
+      - boards
+      operationId: todo.api.get_board
+      summary: Get a single board
+      parameters:
+      - $ref: '#/parameters/board_id'
+      responses:
+        200:
+          description: Returned board
+          schema:
+            $ref: '#/definitions/BoardSchema'
+        404:
+          description: Board not found
+    patch:
+      tags:
+      - boards
+      operationId: todo.api.update_board
+      summary: Update a board
+      parameters:
+        - $ref: '#/parameters/board_id'
+        - name: request_body
+          in: body
+          schema:
+            $ref: '#/definitions/UpdateBoardSchema'
+      responses:
+        200:
+          description: Board updated
+        404:
+          description: Board not found
+    delete:
+      tags:
+      - boards
+      operationId: todo.api.delete_board
+      summary: Delete a board
+      parameters:
+        - $ref: '#/parameters/board_id'
+      responses:
+        204:
+          description: Board was deleted
+        404:
+          description: Board not found
+  /boards/demo:
+    get:
+      tags:
+      - boards
+      operationId: todo.api.get_demo_board
+      summary: Get demo board with predefined tasks
+      responses:
+        200:
+          description: Demo board
+          schema:
+            $ref: '#/definitions/BoardSchema'
   /tasks:
     get:
       tags:
@@ -41,12 +126,15 @@ paths:
             type: array
             items:
               $ref: '#/definitions/TaskSchema'
+
+  /boards/{board_id}/tasks:
     post:
       tags:
       - tasks
       operationId: todo.api.create_task
       summary: Create a task
       parameters:
+        - $ref: '#/parameters/board_id'
         - name: request_body
           in: body
           schema:
@@ -56,6 +144,7 @@ paths:
           description: Task created
           schema:
             $ref: '#/definitions/TaskSchema'
+
   /tasks/{task_id}:
     get:
       tags:
@@ -105,15 +194,84 @@ parameters:
     name: task_id
     description: Task ID
     in: path
-    type: string
+    type: integer
+    format: int4
     required: true
-    pattern: "^[a-zA-Z0-9-]+$"
+
+  board_id:
+    name: board_id
+    description: Board ID
+    in: path
+    type: integer
+    format: int64
+    required: true
 
 definitions:
+
+  BoardSchema:
+    type: object
+    required:
+    - id
+    - name
+    - created_at
+    - updated_at
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Board ID
+        example: 1
+      name:
+        type: string
+        description: Board name
+        example: "Demo board"
+      created_at:
+        type: string
+        format: date-time
+        description: Timestamp when board was created
+        example: "2017-10-02T05:26:27.557765+00:00"
+      updated_at:
+        type: string
+        format: date-time
+        description: Timestamp when board was last updated
+        example: "2017-10-02T06:26:27.557765+00:00"
+
+  BoardDetailsSchema:
+    allOf:
+    - $ref: '#/definitions/BoardSchema'
+    - type: object
+      required:
+      - tasks
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/definitions/TaskSchema'
+
+  CreateBoardSchema:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        description: Board name
+        example: "Demo board"
+
+  UpdateBoardSchema:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Board name
+        example: "Example board"
+
+
   TaskSchema:
     type: object
     required:
     - id
+    - number
     - title
     - description
     - status
@@ -121,9 +279,15 @@ definitions:
     - updated_at
     properties:
       id:
-        type: string
+        type: integer
+        format: int64
         description: Task ID
-        example: a1b2c3
+        example: 123
+      number:
+        type: integer
+        format: int64
+        description: Task number within the board
+        example: 1
       title:
         type: string
         description: Task title
