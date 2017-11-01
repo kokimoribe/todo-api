@@ -35,6 +35,7 @@ app.add_error_handler(NotFoundError, handle_not_found_error)
 
 application = app.app
 CORS(application, origins=['http://localhost:3000'])
+create_tables()
 
 
 @application.teardown_appcontext
@@ -44,5 +45,4 @@ def remove_sessions(exception=None):  # pylint: disable=unused-argument
 
 
 if __name__ == '__main__':
-    create_tables()
     app.run(port=9090)
