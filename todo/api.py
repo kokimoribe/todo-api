@@ -1,9 +1,10 @@
 """Operations are defined here"""
+from sqlalchemy.orm import joinedload, raiseload
 
-from todo.models import Task
+from todo.models import Board, Task
 from todo.exceptions import NotFoundError
 from todo.database import session
-from todo.schemas import TaskSchema
+from todo.schemas import BoardSchema, BoardDetailsSchema, TaskSchema
 
 
 def get_tasks():
@@ -21,13 +22,19 @@ def get_task(task_id):
     return TaskSchema().dump(task).data
 
 
-def create_task(request_body):
+def create_task(board_id, request_body):
     """Create a task"""
-    request_body = Task(**request_body)
-    session.add(request_body)
+    board = Board.query.get(board_id)
+
+    if not board:
+        raise NotFoundError('Board not found.')
+
+    board.task_number += 1
+    task = Task(board_id=board_id, number=board.task_number, **request_body)
+    session.add(task)
     session.commit()
 
-    return TaskSchema().dump(request_body).data
+    return TaskSchema().dump(task).data
 
 
 def update_task(task_id, request_body):
@@ -54,3 +61,69 @@ def delete_task(task_id):
     session.commit()
 
     return None, 200
+
+
+def get_boards():
+    """Get boards"""
+    boards = Board.query.all()
+    return BoardSchema().dump(boards, many=True).data
+
+
+def create_board(request_body):
+    """Create a board"""
+    print(request_body)
+    board = Board(**request_body)
+    session.add(board)
+    session.commit()
+
+    return BoardSchema().dump(board).data
+
+
+def get_board(board_id):
+    """Get a board"""
+    query = Board.query.filter(Board.id == board_id)
+    query = query.options(joinedload(Board.tasks)).options(raiseload('*'))
+    board = query.one_or_none()
+
+    if not board:
+        raise NotFoundError('Board not found.')
+
+    return BoardDetailsSchema().dump(board).data
+
+
+def update_board(board_id, request_body):
+    """Update a board"""
+    board = Board.query.get(board_id)
+
+    if not board:
+        raise NotFoundError('Board not found.')
+
+    for key, value in request_body.items():
+        setattr(board, key, value)
+
+    session.commit()
+
+    return BoardSchema().dump(board).data
+
+
+def delete_board(board_id):
+    """Delete a board and its tasks"""
+    query = Board.query.filter(Board.id == board_id)
+    query = query.options(joinedload(Board.tasks)).options(raiseload('*'))
+    board = query.one_or_none()
+
+    if not board:
+        raise NotFoundError('Board not found.')
+
+    for task in board.tasks:
+        session.delete(task)
+
+    session.delete(board)
+    session.commit()
+
+    return None, 200
+
+
+def get_demo_board():
+    """Get a demo board"""
+    return get_board(1)
