@@ -1,6 +1,7 @@
 """Models"""
 # pylint: disable=invalid-name
 # pylint: disable=too-few-public-methods
+# pylint: disable=too-many-arguments
 
 from sqlalchemy import Column, Integer, String, DateTime, func, ForeignKey, MetaData
 from sqlalchemy.ext.declarative import declarative_base
