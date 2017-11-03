@@ -7,21 +7,6 @@ from todo.database import session
 from todo.schemas import BoardSchema, BoardDetailsSchema, TaskSchema
 
 
-def get_tasks():
-    """Get all tasks"""
-    tasks = Task.query.all()
-    return TaskSchema().dump(tasks, many=True).data
-
-
-def get_task(task_id):
-    """Get task by id"""
-    task = Task.query.get(task_id)
-    if not task:
-        raise NotFoundError('Task not found.')
-
-    return TaskSchema().dump(task).data
-
-
 def create_task(board_id, request_body):
     """Create a task"""
     board = Board.query.get(board_id)

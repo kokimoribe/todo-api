@@ -104,28 +104,6 @@ paths:
           description: Demo board
           schema:
             $ref: '#/definitions/BoardSchema'
-  /tasks:
-    get:
-      tags:
-      - tasks
-      operationId: todo.api.get_tasks
-      summary: Get all tasks
-      parameters:
-        - name: status
-          in: query
-          type: string
-        - name: limit
-          in: query
-          type: integer
-          minimum: 0
-          default: 100
-      responses:
-        200:
-          description: Returned tasks
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskSchema'
 
   /boards/{board_id}/tasks:
     post:
@@ -146,20 +124,6 @@ paths:
             $ref: '#/definitions/TaskSchema'
 
   /tasks/{task_id}:
-    get:
-      tags:
-      - tasks
-      operationId: todo.api.get_task
-      summary: Get a single task
-      parameters:
-        - $ref: '#/parameters/task_id'
-      responses:
-        200:
-          description: Return task
-          schema:
-            $ref: '#/definitions/TaskSchema'
-        404:
-          description: Task not found
     patch:
       tags:
       - tasks
