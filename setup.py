@@ -11,6 +11,7 @@ setup(
         "gunicorn",
         "marshmallow",
         "psycopg2",
+        "python-jose",
         "sqlalchemy",
     ],
 )
