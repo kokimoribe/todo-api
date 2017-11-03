@@ -2,7 +2,7 @@
 RESTful API for a todo app.
 
 API is deployed on Heroku. Give it a try:
-https://todo-api-rd7qf9.herokuapp.com/v1/ui
+https://todo-api-rd7qf9.herokuapp.com/v1/ui/#!/boards/todo_api_get_boards
 
 Built using:
 - [OpenAPI/Swagger Specification](https://github.com/OAI/OpenAPI-Specification)
