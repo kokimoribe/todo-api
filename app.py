@@ -8,7 +8,7 @@ import connexion
 
 from todo.config import DEBUG, HOST
 from todo.database import session, create_tables
-from todo.exceptions import NotFoundError
+from todo.exceptions import NotFoundError, UnauthorizedError
 
 
 def handle_general_exception(error):
@@ -21,7 +21,7 @@ def handle_general_exception(error):
     return response
 
 
-def handle_not_found_error(error):
+def handle_client_error(error):
     """Handle not found error"""
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
@@ -31,7 +31,8 @@ def handle_not_found_error(error):
 app = connexion.FlaskApp(__name__, debug=DEBUG)
 app.add_api('todo-api.yaml', arguments={'host': HOST})
 app.add_error_handler(Exception, handle_general_exception)
-app.add_error_handler(NotFoundError, handle_not_found_error)
+app.add_error_handler(NotFoundError, handle_client_error)
+app.add_error_handler(UnauthorizedError, handle_client_error)
 
 application = app.app
 CORS(application, origins=['http://localhost:3000'])
