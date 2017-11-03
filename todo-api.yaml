@@ -27,6 +27,8 @@ paths:
       - boards
       operationId: todo.api.get_boards
       summary: Get all boards
+      security:
+      - jwt: []
       responses:
         200:
           description: Returned boards
@@ -44,6 +46,8 @@ paths:
         in: body
         schema:
           $ref: '#/definitions/CreateBoardSchema'
+      security:
+      - jwt: []
       responses:
         201:
           description: Board created
@@ -58,6 +62,8 @@ paths:
       summary: Get a single board
       parameters:
       - $ref: '#/parameters/board_id'
+      security:
+      - jwt: []
       responses:
         200:
           description: Returned board
@@ -76,6 +82,8 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/UpdateBoardSchema'
+      security:
+      - jwt: []
       responses:
         200:
           description: Board updated
@@ -88,6 +96,8 @@ paths:
       summary: Delete a board
       parameters:
         - $ref: '#/parameters/board_id'
+      security:
+      - jwt: []
       responses:
         204:
           description: Board was deleted
@@ -99,6 +109,8 @@ paths:
       - boards
       operationId: todo.api.get_demo_board
       summary: Get demo board with predefined tasks
+      security:
+      - jwt: []
       responses:
         200:
           description: Demo board
@@ -117,6 +129,8 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/CreateTaskSchema'
+      security:
+      - jwt: []
       responses:
         201:
           description: Task created
@@ -135,6 +149,8 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/UpdateTaskSchema'
+      security:
+      - jwt: []
       responses:
         200:
           description: Task updated
@@ -147,6 +163,8 @@ paths:
       summary: Delete a task
       parameters:
         - $ref: '#/parameters/task_id'
+      security:
+      - jwt: []
       responses:
         204:
           description: Task was deleted
@@ -312,10 +330,9 @@ definitions:
         - IN_PROGRESS
         - DONE
 
-# securityDefinitions:
-#   oauth2:
-#     type: oauth2
-#     flow: implicit
-#     authorizationUrl: https://example.com/oauth2/dialog
-#     scopes:
-#       uid: Unique identifier of the user accessing the service.
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
