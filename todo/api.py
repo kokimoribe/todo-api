@@ -127,4 +127,9 @@ def delete_board(board_id, user_id):
 
 def get_demo_board():
     """Get a demo board"""
-    return get_board(1)
+    demo_board_id = 1
+    query = Board.query.filter(Board.id == demo_board_id)
+    query = query.options(joinedload(Board.tasks)).options(raiseload('*'))
+    board = query.one()
+
+    return BoardDetailsSchema().dump(board).data
