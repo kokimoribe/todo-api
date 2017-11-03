@@ -41,11 +41,13 @@ class Board(Base):
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False)
+    user_id = Column(String, nullable=False)
     tasks = relationship('Task', backref='board')
 
-    def __init__(self, name):
+    def __init__(self, name, user_id):
         self.name = name
         self.task_number = 0
+        self.user_id = user_id
 
 
 class Task(Base):
