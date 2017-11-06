@@ -12,7 +12,7 @@ from todo.auth import requires_auth
 def create_task(board_id, request_body, user_id):
     """Create a task"""
     query = Board.query.filter(Board.id == board_id, Board.user_id == user_id)
-    board = query.one_or_none
+    board = query.one_or_none()
 
     if not board:
         raise NotFoundError('Board not found.')
