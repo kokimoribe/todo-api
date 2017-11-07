@@ -35,7 +35,7 @@ app.add_error_handler(NotFoundError, handle_client_error)
 app.add_error_handler(UnauthorizedError, handle_client_error)
 
 application = app.app
-CORS(application, origins=['http://localhost:3000'])
+CORS(application, origins=['http://localhost:*'])
 create_tables()
 
 
