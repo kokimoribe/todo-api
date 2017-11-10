@@ -54,6 +54,19 @@ docker-compose up
 1. Open browser and go to: http://localhost:9090/v1/ui
 
 
+## Deployment
+
+### [Heroku](https://www.heroku.com/)
+
+1. Install `dpl` Ruby gem (https://github.com/travis-ci/dpl)
+    ```
+    gem install dpl
+    ```
+1. Run `dpl` with `--provider=heroku`
+    ```
+    dpl --provider=heroku --app=${HEROKU_APP_NAME} --api-key=${HEROKU_API_KEY}
+    ```
+**NOTE:** This is done automatically on every push to `master` via [GitLab's CI/CD service](https://about.gitlab.com/features/gitlab-ci-cd/). The deployment job is defined in [.gitlab-ci.yml](./.gitlab-ci.yml).
 
 ## Why?
 My main motivations for this project were to try out [connexion](https://github.com/zalando/connexion) and [Heroku](https://www.heroku.com/
