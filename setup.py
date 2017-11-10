@@ -8,6 +8,7 @@ setup(
     install_requires=[
         "connexion",
         "flask",
+        "flask-cors",
         "gunicorn",
         "marshmallow",
         "psycopg2",
