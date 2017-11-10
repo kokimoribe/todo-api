@@ -54,6 +54,9 @@ docker-compose up
 1. Open browser and go to: http://localhost:9090/v1/ui
 
 
+## DB Migrations
+The `README` for migrations can be found at [./alembic/README.md](./alembic/README.md)
+
 ## Deployment
 
 ### [Heroku](https://www.heroku.com/)
