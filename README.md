@@ -16,6 +16,11 @@ https://gitlab.com/koki.moribe/todo-api
 Mirror
 https://github.com/kokimoribe/todo-api
 
+## Why?
+My main motivations for this project were to try out [connexion](https://github.com/zalando/connexion) and [Heroku](https://www.heroku.com/
+)
+
+My experience with these two tools are documented in [notes.md](./notes.md)
 
 ## Development
 1. Checkout repo
@@ -71,8 +76,4 @@ The `README` for migrations can be found at [./alembic/README.md](./alembic/READ
     ```
 **NOTE:** This is done automatically on every push to `master` via [GitLab's CI/CD service](https://about.gitlab.com/features/gitlab-ci-cd/). The deployment job is defined in [.gitlab-ci.yml](./.gitlab-ci.yml).
 
-## Why?
-My main motivations for this project were to try out [connexion](https://github.com/zalando/connexion) and [Heroku](https://www.heroku.com/
-)
 
-My experience with these two tools are documented in [notes.md](./notes.md)
