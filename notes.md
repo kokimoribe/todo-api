@@ -35,7 +35,7 @@ job1:
   - true && true
 ```
 
-To ensure all commands are ran successfully, I make sure to set `set -euo pipefail` before any commands are run. E.g.,
+To ensure all commands are run successfully, I make sure to set `set -euo pipefail` before any commands are run. E.g.,
 ```yaml
 image: python:3.6
 
