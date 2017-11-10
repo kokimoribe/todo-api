@@ -74,6 +74,8 @@ The `README` for migrations can be found at [./alembic/README.md](./alembic/READ
     ```
     dpl --provider=heroku --app=${HEROKU_APP_NAME} --api-key=${HEROKU_API_KEY}
     ```
-**NOTE:** This is done automatically on every push to `master` via [GitLab's CI/CD service](https://about.gitlab.com/features/gitlab-ci-cd/). The deployment job is defined in [.gitlab-ci.yml](./.gitlab-ci.yml).
 
+
+## Continuous integration and deployment
+Migrations and deployments are done automatically on every push to `master` via [GitLab's CI/CD service](https://about.gitlab.com/features/gitlab-ci-cd/). The deployment job is defined in [.gitlab-ci.yml](./.gitlab-ci.yml).
 
