@@ -16,20 +16,43 @@ https://gitlab.com/koki.moribe/todo-api
 Mirror
 https://github.com/kokimoribe/todo-api
 
-## Running it locally
+
+## Development
+1. Checkout repo
+    ```bash
+    git clone git@gitlab.com:koki.moribe/todo-api.git
+    ```
+
+1. Install `todo` package in development mode:
+    ```bash
+    # Assumes python >= 3.5
+    cd todo-api
+    pip install -r requirements.txt
+    pip install -e .
+    ```
+
+1. Setup a PostgreSQL server set its database url as an environment variable
+    ```bash
+    export DATABASE_URL=postgres://username:password@host:port/database
+    ```
+
+1. Run the app
+    ```bash
+    python app.py
+    ```
+
+1. Swagger UI can be viewed at http://localhost:9090/v1/ui
+
+## Running via `docker-compose`
 1. Install [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/engine/installation/)
 
-2. Checkout repo
-```bash
-git clone git@gitlab.com:koki.moribe/todo-api.git
-```
-
-3. Run docker-compose
+1. Run docker-compose
 ```bash
 docker-compose up
 ```
 
-4. Open browser and go to: http://localhost:9090/v1/ui
+1. Open browser and go to: http://localhost:9090/v1/ui
+
 
 
 ## Why?
