@@ -52,9 +52,9 @@ My experience with these two tools are documented in [notes.md](./notes.md)
 1. Install [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/engine/installation/)
 
 1. Run docker-compose
-```bash
-docker-compose up
-```
+    ```bash
+    docker-compose up
+    ```
 
 1. Open browser and go to: http://localhost:9090/v1/ui
 
